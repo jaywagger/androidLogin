@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.SignUp2"
+    android:orientation="vertical"
+    android:gravity="center">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/logo"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="얼굴 인식 로그인
+        \n서비스를 이용하겠습니까? \n"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:onClick="btn_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="네 (사진 등록하기)"
+            android:layout_margin="10dp"/>
+        <Button
+            android:onClick="btn_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="아니요 (등록 완료)"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+
+</LinearLayout>

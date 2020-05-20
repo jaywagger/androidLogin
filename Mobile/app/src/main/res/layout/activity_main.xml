@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="#80FFEB3B"
+    tools:context=".MainActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="40dp"
+        android:src="@drawable/logo"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="10dp"
+        >
+        <Button
+            android:id="@+id/loginPage"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:background="#AFDEE4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="서비스 시작하기"
+            android:layout_marginRight="2dp"
+            android:textStyle="bold"/>
+
+<!--        <Button
+            android:id="@+id/parent"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:background="#AFDEE4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="부모님\n모드"
+            android:layout_marginLeft="3dp"
+            android:textStyle="bold"/>-->
+
+    </LinearLayout>
+
+</LinearLayout>

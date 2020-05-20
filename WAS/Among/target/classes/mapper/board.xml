@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="android.among.community.board">
+  	<insert id="boardInsert" parameterType="map">
+  		insert into board values(board_seq.nextval, #{title}, #{text}, #{write_date}, #{userid})
+  	</insert>
+  	
+  	<select id="boardSelect" resultType="board">
+  		select * from board
+  	</select>
+  	
+  	<update id="boardUpdate" parameterType="board">
+  		update board
+  		set title = #{title}, text = #{text}
+  		where board_seq = #{seq} and user_id=#{userid}
+  	</update>
+  	
+  	<delete id="boardDelete" parameterType="map">
+  		delete from board
+  		where board_seq = #{seq} and user_id=#{userid}
+  	</delete>
+</mapper>
+

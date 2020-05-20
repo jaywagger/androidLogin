@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="android.among.community.comment">
+  	<insert id="commentInsert" parameterType="map">
+  		insert into reply values(comment_seq.nextval, #{mcomment}, #{writedate}, #{userid}, #{board_num})
+  	</insert>
+  	
+  	<select id="commentSelect" parameterType="String" resultType="comment">
+  		select distinct r.* 
+  		from reply r, board b
+  		where b.user_id = r.user_id and r.board_num = #{seq}
+  	</select>
+  	
+  	<update id="commentUpdate" parameterType="comment">
+  		update reply
+  		set mcomment = #{mcomment}
+  		where comment_seq = #{seq} and user_id=#{userid}
+  	</update>
+  	
+  	<delete id="commentDelete" parameterType="map">
+  		delete from reply
+  		where comment_seq = #{seq} and user_id=#{userid}
+  	</delete>
+</mapper>
+

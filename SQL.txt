@@ -1,0 +1,21 @@
+conn system/manager
+create user teamtwo identified by teamtwo;
+grant connect, resource to teamtwo;
+ conn teamtwo/teamtwo;
+set linesize 500;
+set pagesize 500;
+
+create table member(
+    idx number primary key not null,
+    userID varchar2(40) not null, 
+    name varchar2(20) not null,
+    password varchar2(20) not null,
+    phone varchar2(15) not null,
+    birth varchar2(10) not null,
+    gender varchar2(10) not null,
+    token varchar2(300) not null
+);
+
+create sequence member_seq;
+
+commit;

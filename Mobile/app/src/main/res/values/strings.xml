@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+
+    //로그인
+    <string name="action_sign_in">로그인</string>
+    <string name="login_failed">로그인실패</string>
+    <string name="title_activity_login">로그인</string>
+    <string name="action_sign_in_short">로그인</string>
+    <string name="invalid_username">유효하지 않은 ID입니다.</string>
+    <string name="invalid_password">6자 이상 입력해야 합니다.</string>
+    <string name="welcome">"환경합니다!"</string>
+
+    //약관
+    <string name="agree1">\n 전체동의는 필수 및 선택정보에 대한 동의도 포함되어 있으며, 개별적으로도 동의를 선택하실 수 있습니다. 선택항목에 대한 동의를 거부하시는 경우에도 서비스는 이용이 가능합니다.</string>
+    <string name="agree2">만 14세 이상입니다.</string>
+    <string name="agree3">[필수] 플래튜닝 계정 약관.</string>
+    <string name="agree4">[필수] 개인정보 수집 및 이용 동의</string>
+    <string name="agree5">[필수] 프로필 정보 추가 수집 동의</string>
+
+</resources>

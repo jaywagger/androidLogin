@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="android.among.member">
+  	<insert id="memInsert" parameterType="member">
+  		insert into member values(member_seq.nextVal, #{userID},#{name},#{password},#{phone},#{birth},#{gender},#{token})
+  	</insert>
+  	<select id="chk" resultType="member" parameterType="String">
+  		select * from member where userID=#{userID}
+  	</select>
+  	<select id="login" resultType="member" parameterType="member">
+  		select * from member where userID=#{userID} and password=#{password}
+  	</select>
+</mapper>

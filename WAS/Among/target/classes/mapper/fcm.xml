@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="multi.shop.member.fcm">
+	<select id="readToken" resultType="fcm" parameterType="String">
+		select * from fcm_table where  fcm_token = #{token}
+	</select>
+	<select id="readClientToken" resultType="fcm" parameterType="String">
+		select * from fcm_table where  num = #{id}
+	</select>
+	<insert id="insertToken" parameterType="String"> 
+		insert into fcm_table values(fcm_val.nextval,#{token})
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

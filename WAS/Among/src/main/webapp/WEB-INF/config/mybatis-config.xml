@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="android.among.member.MemberDTO" alias="member"/>
+		<typeAlias type="android.among.parents.fcm.FCMDTO" alias="fcm"/>
+		<typeAlias type="android.among.community.board.BoardDTO" alias="board"/>
+		<typeAlias type="android.among.community.comment.CommentDTO" alias="comment"/>
+		<typeAlias type="android.among.parents.child.ChildDTO" alias="child"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/member.xml"/>
+		<mapper resource="mapper/fcm.xml"/>
+		<mapper resource="mapper/board.xml"/>
+		<mapper resource="mapper/comment.xml"/>
+		<mapper resource="mapper/child.xml"/>
+	</mappers>
+</configuration>
+

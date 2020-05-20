@@ -1,0 +1,15 @@
+오라클 연동
+1. context: 
+   아이피 주소
+   SQL 계정 변경
+2. 안드로이드 로그인 액티비티 아이피 주소 수정
+3. 안드로이드 signup 아이피 수정 (2곳!!!!!)
+4. STS 멤버 컨트롤러 실행
+
+
+안드로이드 스튜디오
+- SHA1 발급 - 오른쪽 상단 Gradle > Tasks > android > signingReport
+- google-services.json 등록 (app)후 
+	project: classpath 'com.google.gms:google-services:4.3.3'
+	app: apply plugin: 'com.android.application'
+	      implementation 'com.google.firebase:firebase-analytics:17.2.2'
