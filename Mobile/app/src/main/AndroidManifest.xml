@@ -30,14 +30,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".camera.cameraActivity"/>
-        <activity android:name=".home.HomeActivity"/>
-        <activity android:name=".home.TemperatureControllActivity"/>
-        <activity android:name=".login.FaceRec" />
+        <activity android:name=".login.AndroidBridge"/>
+        <activity android:name=".camera.cameraActivity" />
+        <activity android:name=".home.HomeActivity" />
+        <activity android:name=".home.TemperatureControllActivity" />
+        <activity android:name=".login.SignUp" />
         <activity android:name=".login.SignUp2" />
         <activity android:name=".login.SignUpTerms" />
-        <activity android:name=".login.SignUp" />
-
+        <activity android:name=".login.FaceRec" />
         <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,7 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

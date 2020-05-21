@@ -1,6 +1,7 @@
 package com.example.finalproject.login;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -17,21 +18,29 @@ import com.example.finalproject.R;
 
 public class FaceRec extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST = 1;
-
     private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
     private static final String PERMISSION_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+
+
     WebView webView;
     String TAG = "태그";
-    String userID;
+
+
+
+    @SuppressLint("JavascriptInterface")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_face_recog);
-        //인텐트
-
 
         webView =findViewById(R.id.webview);
+
+
+        //webText.setText(webView.get);
+
+
+
 
          webView.setWebChromeClient(new WebChromeClient() {
            public void onPermissionRequest(final PermissionRequest request) {
@@ -59,12 +68,34 @@ public class FaceRec extends AppCompatActivity {
             requestPermission();
         }
 
+        AndroidBridge ab = new AndroidBridge(webView, FaceRec.this);
+        webView.addJavascriptInterface(ab,"Android");
+
     }
+
+    @SuppressLint("JavascriptInterface")
     public void webView(){
+        String url ="file:///android_asset/sample.html";
         WebSettings settings = webView.getSettings();
+        settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setJavaScriptEnabled(true);
-        webView.loadUrl("file:///android_asset/sample.html");
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+
+
+
+
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl(url);
+            }
+        });
+
     }
+
+
+
+
     @Override
     public void onRequestPermissionsResult(
             final int requestCode, final String[] permissions, final int[] grantResults) {

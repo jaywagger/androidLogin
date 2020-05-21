@@ -33,10 +33,12 @@
 
         // Convenience function to setup a webcam
         const flip = true; // whether to flip the webcam
-        webcam = new tmImage.Webcam(500, 500, flip); // width, height, flip
+        webcam = new tmImage.Webcam(400, 400, flip); // width, height, flip
         await webcam.setup(); // request access to the webcam
         await webcam.play();
+        window.Android.call_log('웹사이트에서 안드로이도로');
         window.requestAnimationFrame(loop);
+
 
         // append elements to the DOM
         document.getElementById("webcam-container").appendChild(webcam.canvas);
@@ -59,16 +61,29 @@
 
         if(prediction[0].className=="hwang"&&prediction[0].probability.toFixed(2) == 1.00){
         	labelContainer.childNodes[0].innerHTML = "안녕하세요, 황제윤님!";
-        	 if(prediction[0].className=="hwang"){
-                 }
+        	window.Android.call_log(prediction[0].className);
+
         }else if(prediction[1].className=="iphone"&&prediction[1].probability.toFixed(2) == 1.00){
         	labelContainer.childNodes[0].innerHTML = "아이폰으로 인식되고 있습니다.";
-        }else if(prediction[2].className=="lee"&&prediction[2].probability.toFixed(2) == 1.00){
+        	window.Android.call_log(prediction[1].className);
+
+        }else if(prediction[3].className=="lee"&&prediction[2].probability.toFixed(2) == 1.00){
         	labelContainer.childNodes[0].innerHTML = "안녕하세요, 이정윤님!";
+        	window.Android.call_log(prediction[2].className);
+
+        }else if(prediction[4].className=="park"&&prediction[2].probability.toFixed(2) == 1.00){
+        	labelContainer.childNodes[0].innerHTML = "안녕하세요, 박누리님!";
+        	window.Android.call_log(prediction[3].className);
+
+        }else if(prediction[2].className=="moon"&&prediction[2].probability.toFixed(2) == 1.00){
+        	labelContainer.childNodes[0].innerHTML = "안녕하세요, 문준우님!";
+        	window.Android.call_log(prediction[4].className);
+
         }else{
         	labelContainer.childNodes[0].innerHTML = "알 수 없음";
         }
     }
 </script>
+<!--<a href="javascript:window.Android.call_log('연동테스트1');">연동</a>-->
 </body>
 </html>

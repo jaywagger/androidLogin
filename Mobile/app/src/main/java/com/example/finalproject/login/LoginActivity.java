@@ -154,6 +154,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        face.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("face1", "face_recog: ");
+                Intent intent = new Intent(getApplicationContext(), FaceRec.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -171,7 +180,8 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),SignUpTerms.class);
         startActivity(intent);
     }
-    public void face_recog(View view){
+    public void face_recog1(View view){
+        Log.d("face1", "face_recog: ");
         Intent intent = new Intent(getApplicationContext(), FaceRec.class);
         startActivity(intent);
     }

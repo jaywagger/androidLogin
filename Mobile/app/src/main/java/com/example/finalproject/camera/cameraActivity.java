@@ -367,7 +367,7 @@ public class cameraActivity extends AppCompatActivity {
         stopBackgroundThread();
         super.onPause();
     }
-    public void register_finish(){
+    public void register_finish(View view){
         Intent intent = new Intent(cameraActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
