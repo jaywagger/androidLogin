@@ -56,7 +56,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class cameraActivity extends AppCompatActivity {
+public class cameraActivity3 extends AppCompatActivity {
     private static final String TAG = "안드로이드 카메라 api";
     private Button takePictureButton;
     private TextureView textureView;
@@ -94,7 +94,7 @@ public class cameraActivity extends AppCompatActivity {
         register_face.setWebChromeClient(new WebChromeClient() {
             public void onPermissionRequest(final PermissionRequest request) {
                 Log.d(TAG, "onPermissionRequest");
-                cameraActivity.this.runOnUiThread(new Runnable() {
+                cameraActivity3.this.runOnUiThread(new Runnable() {
                     @TargetApi(Build.VERSION_CODES.M)
                     @Override
                     public void run() {
@@ -118,7 +118,7 @@ public class cameraActivity extends AppCompatActivity {
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
 
-        AndroidBridge_reg ab2 = new AndroidBridge_reg(register_face, cameraActivity.this);
+        AndroidBridge_reg ab2 = new AndroidBridge_reg(register_face, cameraActivity3.this);
         register_face.addJavascriptInterface(ab2,"Android");
 
         register_face.post(new Runnable() {
@@ -193,7 +193,7 @@ public class cameraActivity extends AppCompatActivity {
         @Override
         public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
             super.onCaptureCompleted(session, request, result);
-            Toast.makeText(cameraActivity.this, "저장되었습니다:" + file, Toast.LENGTH_SHORT).show();
+            Toast.makeText(cameraActivity3.this, "저장되었습니다:" + file, Toast.LENGTH_SHORT).show();
             createCameraPreview();
         }
     };
@@ -283,7 +283,7 @@ public class cameraActivity extends AppCompatActivity {
                 @Override
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
                     super.onCaptureCompleted(session, request, result);
-                    Toast.makeText(cameraActivity.this, "저장되었습니다.:" + file, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(cameraActivity3.this, "저장되었습니다.:" + file, Toast.LENGTH_SHORT).show();
                     createCameraPreview();
                 }
             };
@@ -328,7 +328,7 @@ public class cameraActivity extends AppCompatActivity {
 
                 @Override
                 public void onConfigureFailed(@NonNull CameraCaptureSession cameraCaptureSession) {
-                    Toast.makeText(cameraActivity.this, "onConfigureFailed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(cameraActivity3.this, "onConfigureFailed", Toast.LENGTH_SHORT).show();
                 }
             }, null);
         } catch (CameraAccessException e) {
@@ -353,7 +353,7 @@ public class cameraActivity extends AppCompatActivity {
             imageDimension = map.getOutputSizes(SurfaceTexture.class)[1];
             // 카메라 권한 설정
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(cameraActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
+                ActivityCompat.requestPermissions(cameraActivity3.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
                 return;
             }
             manager.openCamera(cameraId, stateCallback, null);
@@ -391,7 +391,7 @@ public class cameraActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 // close the app
-                Toast.makeText(cameraActivity.this, "죄상합니다, 권한을 부여해주세요!", Toast.LENGTH_LONG).show();
+                Toast.makeText(cameraActivity3.this, "죄상합니다, 권한을 부여해주세요!", Toast.LENGTH_LONG).show();
                 finish();
             }
         }
@@ -417,7 +417,7 @@ public class cameraActivity extends AppCompatActivity {
         super.onPause();
     }
     public void register_finish(View view){
-        Intent intent = new Intent(cameraActivity.this, LoginActivity.class);
+        Intent intent = new Intent(cameraActivity3.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.finalproject.R;
-import com.example.finalproject.camera.cameraActivity;
+import com.example.finalproject.camera.FaceRec_reg;
 
 public class SignUp2 extends AppCompatActivity {
 
@@ -19,7 +19,7 @@ public class SignUp2 extends AppCompatActivity {
 
 
     public void btn_yes(View view){
-        Intent intent = new Intent(SignUp2.this, cameraActivity.class);
+        Intent intent = new Intent(SignUp2.this, FaceRec_reg.class);
         startActivity(intent);
         finish();
 
