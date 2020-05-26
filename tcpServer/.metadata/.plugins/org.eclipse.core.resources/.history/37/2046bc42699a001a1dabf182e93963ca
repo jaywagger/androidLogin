@@ -1,0 +1,117 @@
+package tcpserver;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.StringTokenizer;
+import java.util.Vector;
+
+
+public class User2 extends Thread{
+	//ChatServerView에서 넘겨받을 데이터
+	Socket client;
+	ChatServerView serverView;
+	InputStream is;
+	InputStreamReader ir;
+	BufferedReader br;
+	 
+	OutputStream os;
+	PrintWriter pw;
+	
+	String nickname ;
+	StringTokenizer st;
+	Vector<User2> userlist;
+	public User2() {
+		
+	}
+	public User2(Socket client, ChatServerView serverView,Vector<User2> userlist) {
+		super();
+		this.client = client;
+		this.serverView = serverView;
+		this.userlist = userlist;
+		ioWork();
+	}
+	
+	public void ioWork() { //처음 접속했을 때 한 번 실행되는 메소드
+		try {
+			is = client.getInputStream();
+			ir = new InputStreamReader(is);
+			br = new BufferedReader(ir);
+			
+			os = client.getOutputStream();
+			pw = new PrintWriter(os,true);
+			
+			nickname = br.readLine();
+			System.out.println("nickname:"+nickname);
+			serverView.taclientlist.append("**************"+nickname+"님이 입장***********\n");
+			
+			//broadCast("new/"+nickname);
+			int size = userlist.size();//기존 접속자 인원수
+			for (int i = 0; i < size; i++) {
+				User2 user = userlist.get(i);
+				sendMsg("old/"+user.nickname);
+			}
+			userlist.add(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private void filteringMsg(String msg) {
+		System.out.println("서버가 받은 클라이언트의 메시지:"+msg);
+		st = new StringTokenizer(msg,"/");
+		String protocol = st.nextToken();
+		if(protocol.equals("chatting")) {
+			String message = st.nextToken();
+			String nickname = st.nextToken();
+			broadCast("chatting/"+message+"/"+nickname);
+		}
+	}
+	private void broadCast(String msg) {
+		int size = userlist.size();//기존 접속자 인원수
+		for (int i = 0; i < size; i++) {
+			User2 user = userlist.get(i);
+			user.sendMsg(msg);
+		}
+	}
+	public void sendMsg(String message) {
+		pw.println(message);
+	}
+	
+	public void run() {
+		while(true) {
+			try {
+				String msg = br.readLine();
+				serverView.taclientlist.append(nickname+"이 전송한 메시지:"+msg+"\n");
+				//filteringMsg(msg);
+			} catch (IOException e) {
+				//3. 클라이언트 접속이 끊어지면 처리===========================
+				serverView.taclientlist.append(nickname+"클라이언트의 접속이 끊어짐\n");
+				try {
+					//자원반납
+					is.close();
+					ir.close();
+					br.close();
+					os.close();
+					pw.close();
+					client.close();
+					userlist.remove(this);//클라이언트 목록에서 제거
+					//broadCast("out/"+nickname);//다른 클라이언트에게 알려주는 작업
+					//===========================================================
+				} catch (IOException e1) {
+				}
+				break;
+			}
+		}
+	}
+	
+}
+
+
+
+
+
+
+

@@ -71,15 +71,6 @@
         }else if(prediction[3].className=="lee"&&prediction[2].probability.toFixed(2) == 1.00){
         	labelContainer.childNodes[0].innerHTML = "lee";
         	window.Android.call_log2(prediction[2].className);
-
-        }else if(prediction[4].className=="park"&&prediction[2].probability.toFixed(2) == 1.00){
-        	labelContainer.childNodes[0].innerHTML = "park";
-        	window.Android.call_log2(prediction[3].className);
-
-        }else if(prediction[2].className=="moon"&&prediction[2].probability.toFixed(2) == 1.00){
-        	labelContainer.childNodes[0].innerHTML = "moon";
-        	window.Android.call_log2(prediction[4].className);
-
         }else{
         	labelContainer.childNodes[0].innerHTML = "얼굴 인식 등록 중입니다.";
         }

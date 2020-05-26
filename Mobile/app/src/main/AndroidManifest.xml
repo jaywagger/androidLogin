@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".login.AndroidBridge"/>
+        <activity android:name=".voice.voiceActivity"/>
+        <activity android:name=".login.AndroidBridge" />
         <activity android:name=".camera.FaceRec_reg" />
         <activity android:name=".home.HomeActivity" />
         <activity android:name=".home.TemperatureControllActivity" />

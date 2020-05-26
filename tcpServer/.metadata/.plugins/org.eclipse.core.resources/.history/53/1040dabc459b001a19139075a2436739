@@ -1,0 +1,128 @@
+package tcpserver;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.StringTokenizer;
+import java.util.Vector;
+
+import javax.jws.soap.SOAPBinding.Use;
+
+//TCP서버쪽에 클라이언트의 요청을 계속 읽는 쓰레드
+public class User extends Thread{
+	Socket client;
+	BufferedReader br;//클라이언트의 메시지를 읽는 스트림
+	PrintWriter pw; //클라이언트에게 메시지를 전달하는 스트림
+	ServerView serverView;
+	//SerialAduinoLEDControl serialObj;//시리얼통신을 위한 객체
+	OutputStream os;//시리얼통신에서 아두이노로 데이터를 내보내기 위한 스트림
+	InputStream is;
+	InputStreamReader ir;
+	Vector<User> carlist;
+	Vector<User> userlist;
+	StringTokenizer st;
+	String userid;
+	String info;// 안드로이드 & 차 리스트 유저 구분
+	String ip;
+	public User() {
+		
+	}
+	public User(Socket client,Vector<User> userlist,Vector<User> carlist,ServerView serverView,String ip) {
+		this.client = client;
+		this.userlist = userlist;
+		this.serverView = serverView;
+		this.carlist = carlist;
+		this.ip = ip;
+		ioWork();
+		//run();
+			//클라이어트가 보내오는 메시지를 읽기 위한 스트림 생성
+			//br = new BufferedReader(new InputStreamReader(client.getInputStream()));
+			//클라이언트에게 메시지를 전송하기 위한 스트림생성
+			//pw = new PrintWriter(client.getOutputStream(),true);
+			//os = client.getOutputStream();
+			//"70.12.229.88"
+			
+	} 
+	public void ioWork() { //처음 접속했을 때 한 번 실행되는 메소드
+		try {
+			is = client.getInputStream();
+			ir = new InputStreamReader(is);
+			br = new BufferedReader(ir);
+			
+			os = client.getOutputStream();
+			pw = new PrintWriter(os,true);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private void filteringMsg(String msg) {
+		System.out.println("서버가 받은 클라이언트의 메시지:"+msg);
+		st = new StringTokenizer(msg,"/");
+		info = st.nextToken();
+		String protocol = st.nextToken();
+		if(protocol.equals("sensor")) {
+			String message = st.nextToken();
+			userid = st.nextToken();
+			System.out.println("메세지==>"+message+"유저아이디"+userid);
+			CarSend("sensor/"+message+"/"+userid);
+			//serverView.taclientlist.append(userid+"이 전송한 메시지:"+msg+"\n");
+		}else if(protocol.equals("crash")) {
+			String message = st.nextToken();
+			String carnum = st.nextToken();
+			System.out.println("크레쉬메세지=>"+message+"차넘버->"+carnum);
+			UserSend("crash/"+message+"/"+carnum); 
+		}
+	}
+	private void CarSend(String msg) {
+		int size = userlist.size();//기존 접속자 인원수
+		System.out.println("cast메시지==>"+msg);
+		System.out.println("유저리스트확인"+userlist);
+		for (int i = 0; i < size; i++) {
+			User user = userlist.get(i);
+			user.sendMsg(msg);
+		}
+	}
+	private void UserSend(String msg) {
+		int size = carlist.size();//기존 접속자 인원수
+		System.out.println("cast메시지==>"+msg);
+		System.out.println("유저리스트확인"+userlist);
+		for (int i = 0; i < size; i++) {
+			User user = carlist.get(i);
+			user.sendMsg(msg);
+		}
+	}
+	public void sendMsg(String message) {
+		pw.println(message);
+	}
+	@Override
+	public void run() {
+		//클라이언트의 메시지를 받아서 아두이노로 데이터를 전송
+		while(true) {
+			try {
+				String msg = br.readLine();
+				System.out.println("클라이언트가 보낸 메시지:"+msg);
+				filteringMsg(msg);
+			} catch (IOException e) {
+				serverView.taclientlist.append(userid+"클라이언트의 접속이 끊어짐\n");
+				try {
+					is.close();
+					ir.close();
+					br.close();
+					os.close();
+					pw.close();
+					client.close();
+					userlist.remove(this);
+				} catch (IOException e1) {
+				}
+				break;
+				
+			}
+		}
+		
+	}
+}
